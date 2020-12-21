@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Error</title>
+</head>
+<body>
+    <header id="header">
+        <div class="intro">
+            <div class="overlay">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-10 col-md-offset-1 intro-text"style="padding-bottom:60px;padding-top:180px">
+                            <h1 style="font-size:50px">Error</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div style="height:350px">
+        <h2 style="text-align:center;min-height:172px; margin-top:5%">
+            An error occurred while processing your request.
+            @if (Session["Error message"] != null)
+            {
+                <br />
+                <a style="color:red">@Session["Error message"].ToString()</a>
+            }
+            else
+            { 
+                <br />
+                <a style="color:red">Some error occured.</a>
+            }
+            <br />Please go to homepage.
+        </h2>
+        
+    </div>
+    
+</body>
+</html>

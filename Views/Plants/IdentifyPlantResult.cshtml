@@ -1,0 +1,119 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model IEnumerable<igarden.Models.ImageSearch>
+@{
+    ViewBag.Title = "Identify Plant";
+}
+<header id="header">
+    <div class="intro">
+        <div class="overlay">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-10 col-md-offset-1 intro-text" style="padding-bottom:60px;padding-top:180px">
+                        <h1 style="font-size:60px">Identify your plant</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container1" style="margin-top:20px">
+    <div id="portfolio" style="background-color:#d7e6db;padding-left:2%; padding-right:2%">
+        <div style="text-align:center">
+            <img src=@Session["search_image_path"].ToString() alt=@Session["search_image_path"].ToString() height="250" width="250" style="border-radius:25px; margin-bottom:5%">
+            <p><a>Here are the top 5 matches for the uploaded image.</a></p>
+            <div align="center" style="font-size:15px; padding-top:20px;">
+
+                @foreach (var item in Model)
+                {
+                    <div style="border-radius:15px;background-color:#d1f8d0; max-width:600px; padding-top:5px; padding-bottom:5px">
+                        <table style="margin-top:10px; margin-bottom:10px; max-width:450px; text-align:left;">
+                            <tr>
+                                <td>
+                                    <b>Scientific Name</b>
+                                </td>
+                                <td>
+                                    <b>&emsp;:&emsp;</b>
+                                </td>
+                                <td>
+                                    @item.Plant_Scientific_Name
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <b>Common Name</b>
+                                </td>
+                                <td>
+                                    <b>&emsp;:&emsp;</b>
+                                </td>
+                                <td>
+                                    @item.Common_Name
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <b>Family</b>
+                                </td>
+                                <td>
+                                    <b>&emsp;:&emsp;</b>
+                                </td>
+                                <td>
+                                    @item.Family
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <b>Score</b>
+                                </td>
+                                <td>
+                                    <b>&emsp;:&emsp;</b>
+                                </td>
+                                <td>
+                                    @if (item.Score < 10)
+                                    {
+                                        <p style="color:#ff3333">@item.Score.ToString() %</p>
+                                    }
+                                    else if (item.Score < 20)
+                                    {
+                                        <p style="color:#ffb380">@item.Score.ToString() %</p>
+                                    }
+                                    else if (item.Score < 50)
+                                    {
+                                        <p style="color:#ff9933">@item.Score.ToString() %</p>
+                                    }
+                                    else
+                                    {
+                                        <p style="color:#9fff80">@item.Score.ToString() %</p>
+                                    }
+                                </td>
+                            </tr>
+
+                            @if (item.Plant_ID != null)
+                            {
+                                <tr>
+                                    <td>
+                                        <a href=@Url.Action("Details", "Plants", new { id = item.Plant_ID })>More details</a>
+                                    </td>
+
+                                </tr>
+
+                            }
+                        </table>
+                    </div>
+                    <hr />
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .container1 {
+        margin-top: 20px;
+        margin-left: 8%;
+        margin-right: 8%;
+        width: 100%;
+        max-width: 84%;
+    }
+</style>

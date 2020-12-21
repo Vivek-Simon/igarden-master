@@ -1,0 +1,114 @@
+﻿@model IEnumerable<igarden.Models.Allergy>
+
+@{
+    ViewBag.Title = "Index";
+}
+<!-- Header -->
+<header id="header">
+    <div class="intro">
+        <div class="overlay">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-10 col-md-offset-1 intro-text"style="padding-bottom:60px;padding-top:180px">
+                        <h1 style="font-size:50px">Toxic and Allergenic plants</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+        
+
+    <div class="container1" style="margin-top:20px;" >
+        
+        <div id="portfolio" style="background-color:#e2e9e2; padding-left:2%; padding-right:2%;">
+            <div style="text-align:justify; padding-bottom:20px; line-height:25px;">
+                <p>
+                    Humans have been managing plant growth to suit themselves for thousands of years and have been able to select and cultivate the most
+                    edible, avoiding dangerous poisonous plants (sometimes after fatal tasting results). But humans also enjoy the presence of all kinds
+                    of ornamental plants around them and the horticultural industry thrives on providing plants for this purpose.
+                    <br />
+                    There are a few indigenous poisonous plants found growing naturally but most poisonous plants are exotic species found in home or
+                    public gardens or as weeds. The below list provides information about such plants.
+                </p>
+                <p><b>Click on the plant to know more about their toxicity levels.</b></p>
+            </div>
+
+
+            <div class="row">
+                @foreach (var item in Model)
+                {
+                    <div class="portfolio-items" style="text-align:center">
+                        <div class="col-sm-4 col-md-4" style="max-height:200px ;margin-bottom:10px">
+                            <div class="portfolio-item" style="max-height: 150px ">
+                                <div class="hover-bg">
+                                    <a href=@Url.Action("Details", "Allergies", new { id = item.Plant_id }) title="Project Title" data-lightbox-gallery="gallery1" style="text-align:center">
+                                        <div class="hover-text">
+                                            <p style="font-size:15px">@item.Scientific_Name</p>
+                                        </div>
+                                        <img src="@item.Image_src" style="height:150px; width:50%; align-self:center; margin-left:25%; margin-right:25%" class="img-responsive" alt=@item.Scientific_Name>
+                                    </a>
+                                </div>
+                            </div>
+                            <p style="font-size:15px">@Html.DisplayFor(modelItem => item.Common_name)</p>
+                        </div>
+                    </div>
+                }
+            </div>
+            <br />
+
+            <div style="text-align:center">                
+                <table style="width:100%">
+                    <tr>
+                        <td style="width:50%;text-align:left;">
+                            @if (ViewBag.Page > 0)
+                            {
+                                <a href="@Url.Action("Index", new { page = ViewBag.Page - 1 })"
+                                    class="btn btn-default" style="margin-left:10%; color:white ">
+                                    &laquo; Prev
+                                </a>
+                            }
+                        </td>
+                        <td style="width:50%;text-align:right;">
+                            @if (ViewBag.Page < ViewBag.MaxPage)
+                            {
+                                <a href="@Url.Action("Index", new { page = ViewBag.Page + 1 })"
+                                   class="btn btn-default" style="margin-right:10%; color:white">
+                                    Next &raquo;
+                                </a>
+                            }
+                        </td>
+                    </tr>
+                </table>
+                <div style="text-align:left;">
+                    @if (ViewBag.Page > 0)
+                    {
+                        
+                    }
+                </div>
+                <div style="text-align:right;">
+                    @if (ViewBag.Page < ViewBag.MaxPage)
+                    {
+                        
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<style>
+    .container1 {
+        margin-left: 8%;
+        max-width: 84%;
+        margin-right:8%
+    }
+    .btn, .btn-default {
+        background-color: #69af07;
+    }
+
+        .btn:hover, .btn-default:hover {
+            background-color: #5f9d07;
+        }
+</style>

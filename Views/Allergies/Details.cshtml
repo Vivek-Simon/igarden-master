@@ -1,0 +1,139 @@
+﻿@model igarden.Models.Allergy
+
+@{
+    ViewBag.Title = "Details";
+}
+    <header id="header">
+        <div class="intro">
+            <div class="overlay">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-10 col-md-offset-1 intro-text"style="padding-bottom:60px;padding-top:180px">
+                            <h1 style="font-size:60px">Details</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="content" style="margin-top:10px; background-color:#e2e9e2; text-align:center; padding-top:20px; padding-bottom:20px">
+        <h2>@Model.Scientific_Name</h2>
+
+
+        <div>
+            <div style="height:250px; align-self:center; align-content:center;">
+                <img src=@Model.Image_src height="250" width="250" style="border-radius: 20px;" />
+            </div>
+            <div style="margin-top:20px">
+
+                <p>
+                    <b>Scientific Name :</b>
+                    @Html.DisplayFor(model => model.Scientific_Name)
+                </p>
+
+                <p>
+                    <b>Common Name:</b>
+
+                    @Html.DisplayFor(model => model.Common_name)
+                </p>
+                <hr />
+                <div align="center">
+                    The above plant has the following toxic properties.
+                    <table style="text-align:left; margin-left:5%; margin-right:5%; margin-top:20px; margin-bottom:20px; max-width:450px">
+                        @if (Model.Very_poisonous == 1)
+                        {
+                            <tr>
+                                <td>
+                                    <img src="~/Content/Images/Symbols/very-poison.png" height="50" width="50" style="margin-right:20px" />
+                                </td>
+                                <td>
+                                    Can cause serious illness or death. Highly Toxic to Children.
+                                </td>
+                            </tr>
+                        }
+
+                        
+                        @if (Model.Poisonous == 1)
+                        {
+
+                            <tr>
+                                <td>
+                                    <img src="~/Content/Images/Symbols/poisonous.png" height="50" width="50" style="margin-right:20px" />
+                                </td>
+                                <td>
+                                    May cause minor illnesses such as vomiting or diarrhoea.
+                                </td>
+                            </tr>
+
+                        }
+
+                        @if (Model.Allergenic == 1)
+                        {
+
+                            <tr>
+                                <td>
+                                    <img src="~/Content/Images/Symbols/allergenic.png" height="50" width="50" style="margin-right:20px" />
+                                </td>
+                                <td>
+                                    May cause a host of allergenic reactions such as hay fever, asthma and other breathing difficulties, irritation of the mucous membranes, dermatitis, nausea, vomiting, diarrhoea and gastroenteritis.
+                                </td>
+                            </tr>
+
+                        }
+
+                        @if (Model.Irritant == 1)
+                        {
+
+                            <tr>
+                                <td>
+                                    <img src="~/Content/Images/Symbols/irritation.png" height="50" width="50" style="margin-right:20px" />
+                                </td>
+                                <td>
+                                    Can cause rashes, blisters or dermatitis of the skin or irritate the eyes, nose or mouth.
+                                </td>
+                            </tr>
+
+
+                        }
+
+                        @if (Model.Invasive == 1)
+                        {
+
+
+                            <tr>
+                                <td>
+                                    <img src="~/Content/Images/Symbols/invasive plant.png" height="50" width="50" style="margin-right:20px" />
+                                </td>
+                                <td>
+                                    Species are known to be invasive into natural or farming areas.
+                                </td>
+                            </tr>
+
+                        }
+
+                    </table>
+                </div>
+            </div>
+        </div>
+        <p class="container3">
+            @Html.ActionLink("Back to List", "Index", new { page = Session["allegic_page"] })
+        </p>
+    </div>
+
+<style>
+    .content {
+        margin-left:8%;
+        margin-right:8%;
+        max-width: 84%;
+        
+    }
+    .container3 {
+        margin-left: 5%;
+        max-width: 50%;
+    }
+    td{
+        padding-top:15px;
+        padding-bottom:15px;
+    }
+    
+</style>

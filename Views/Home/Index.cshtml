@@ -1,0 +1,389 @@
+﻿@{
+    ViewBag.Title = "Home";
+}
+<!-- Bootstrap -->
+<link rel="stylesheet" type="text/css" href="~/css/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="~/fonts/font-awesome/css/font-awesome.css">
+
+<!-- Slider
+    ================================================== -->
+<link href="~/css/owl.carousel.css" rel="stylesheet" media="screen">
+<link href="~/css/owl.theme.css" rel="stylesheet" media="screen">
+<script type="text/javascript" src="~/js/jquery.1.11.1.js"></script>
+
+<!-- Stylesheet
+    ================================================== -->
+<link rel="stylesheet" type="text/css" href="~/css/style.css">
+<link rel="stylesheet" type="text/css" href="~/css/nivo-lightbox/nivo-lightbox.css">
+<link rel="stylesheet" type="text/css" href="~/css/nivo-lightbox/default.css">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+
+@using (Html.BeginForm("getDetails", "Home", FormMethod.Post))
+{
+
+    <!-- Header -->
+    <header id="header">
+        <div class="intro">
+            <div class="overlay">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-8 col-md-offset-2 intro-text">
+                            <h1 style="font-size:50px">Intelligent Gardens</h1>
+                            <p>
+                                Find suitable plants for your garden.
+                            </p>
+                            
+                            <div class="search">
+                                <input type="text" name="address" id="adress" value="" placeholder="Enter your address here..." maxlength="100" oninvalid="this.setCustomValidity('Please Enter Your Address Here')" oninput="this.setCustomValidity('')" required/>
+                                <br> <br>
+                                <input type="submit" id ="get_plants_but" style="max-width:170px; margin-left:3%; text-align:center" name="plants" value="Get Plants" />
+                                <input type="submit" id="get_nurser_but" style="max-width:170px; margin-left:3%" name="nurseries" value="Get Nurseries" />
+                            </div>
+                            <a id ="more_info" style="color:white; font:10px; cursor:pointer" onclick="show_more_info()"><b><i class="fa fa-chevron-down" style="font-size:20px"></i>More Information</b></a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+
+    <!-- About Section -->
+    <div id="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-md-6">
+                    <div class="about-text">
+                        <h2>Welcome to <span>Intelligent Gardens</span></h2>
+                        <hr>
+                        <p style="padding-left:2%">
+                            "To plant a garden is to believe in tomorrow"<br />
+                            &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;&emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+                            <a href="https://en.wikipedia.org/wiki/Audrey_Hepburn">-Audrey Hepburn</a><br />
+                            Get information on plants for your garden here.
+                        </p>
+                        <p></p>
+                        <a href="/Home/About" class="btn btn-custom btn-lg page-scroll">Information about us</a>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-3">
+                    <div class="about-media" align="center">
+                        <a href=@Url.Action("IdentifyPlant", "Plants")>
+                            <img src="~/Content/Images/Tiles/identify_plant.jpg" id="idPlants" alt="Identify Plant" style="height:230px; width:230px">
+                            <div class="about-desc">
+                                <h3>Identify Your Plant</h3>
+                                <p style="color:#666;">Upload the image of a plant to know its properties.</p>
+
+                            </div>
+                        </a>
+                    </div>                    
+                </div>
+                <div class="col-xs-12 col-md-3">
+                    <div class="about-media" align="center">
+                        <a href=@Url.Action("Index", "Plants")>
+                            <img src="~/Content/Images/Tiles/garden_plants.jpg" id="idPlants" alt="Identify Plant" style="height:230px; width:230px">
+
+                            <div class="about-desc">
+                                <h3>All Garden Plants</h3>
+                                <p style="color:#666;">Choose a plant from the list of all available plants.</p>
+
+                            </div>
+                            </a>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style type="text/css">
+
+        /* Header Section */
+        .intro {
+            display: table;
+            width: 100%;
+            padding: 0;
+            background: url('../../img/intro-bg.jpg') top center no-repeat;
+            background-color: #e5e5e5;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            background-size: cover;
+            -o-background-size: cover;
+        }
+
+            .intro .overlay {
+                /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#000000+0,70ad47+100&0.6+0,0.4+100 */
+                background: -moz-linear-gradient(top, rgba(0,0,0,0.6) 0%, rgba(112,173,71,0.4) 100%); /* FF3.6-15 */
+                background: -webkit-linear-gradient(top, rgba(0,0,0,0.6) 0%, rgba(112,173,71,0.4) 100%); /* Chrome10-25,Safari5.1-6 */
+                background: linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, rgba(112,173,71,0.4) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+                filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#99000000', endColorstr='#6670ad47', GradientType=0 ); /* IE6-9 */
+            }
+
+            .intro .fa {
+                font-size: 94px;
+                margin-bottom: 40px;
+                color: #fff;
+            }
+
+            .intro h1 {
+                color: #fff;
+                font-size: 64px;
+                font-weight: 700;
+                letter-spacing: -1px;
+                margin-top: 0;
+                margin-bottom: 10px;
+                text-transform: uppercase;
+            }
+
+            .intro p {
+                color: #fff;
+                font-size: 22px;
+                margin-top: 20px;
+                line-height: 28px;
+                margin-bottom: 40px;
+            }
+
+            .intro .btn-custom {
+                border-top: 1px solid rgba(255,255,255,0.4);
+                border-bottom: 1px solid rgba(255,255,255,0.4);
+            }
+
+        header .intro-text {
+            padding-top: 250px;
+            padding-bottom: 100px;
+            text-align: center;
+        }
+        /* Buttom (Page Roll)*/
+        .intro .btn-custom {
+            border-top: 1px solid rgba(255,255,255,0.4);
+            border-bottom: 1px solid rgba(255,255,255,0.4);
+        }
+
+        .btn-custom {
+            text-transform: uppercase;
+            color: #fff;
+            background-color: #6aaf08;
+            padding: 14px 20px;
+            letter-spacing: 1px;
+            margin: 0;
+            font-size: 17px;
+            font-weight: 400;
+            border-radius: 6px;
+            margin-top: 20px;
+            transition: all 0.3s;
+        }
+
+        .btn-lg,
+        .btn-group-lg > .btn {
+            padding: 10px 16px;
+            font-size: 18px;
+            line-height: 1.3333333;
+            border-radius: 6px;
+        }
+
+        element.style {
+        }
+
+        .intro .btn-custom {
+            border-top: 1px solid rgba(255,255,255,0.4);
+            border-bottom: 1px solid rgba(255,255,255,0.4);
+        }
+
+        .btn-custom {
+            text-transform: uppercase;
+            color: #fff;
+            background-color: #6aaf08;
+            padding: 14px 20px;
+            letter-spacing: 1px;
+            margin: 0;
+            font-size: 17px;
+            font-weight: 400;
+            border-radius: 6px;
+            margin-top: 20px;
+            transition: all 0.3s;
+        }
+
+        .btn-lg, .btn-group-lg > .btn {
+            padding: 10px 16px;
+            font-size: 18px;
+            line-height: 1.3333333;
+            border-radius: 6px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 6px 12px;
+            margin-bottom: 0;
+            font-size: 14px;
+            font-weight: normal;
+            line-height: 1.42857143;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            -ms-touch-action: manipulation;
+            touch-action: manipulation;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            background-image: none;
+            border: 1px solid transparent;
+            border-radius: 4px;
+        }
+        /* Search*/
+        .search {
+            color: #fff;
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom:40px
+        }
+
+        input[type=text] {
+            font-size: 20px;
+            color: darkgrey;
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type=submit] {
+            width: 50%;
+            background-color: #ff00dc;
+            color: white;
+            padding: 10px 10px;
+            margin: 4px 0;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+            input[type=submit]:hover {
+                background-color: #5f9d07;
+            }
+
+
+
+        /* About Section */
+        #about {
+            padding: 120px 0 80px 0;
+        }
+
+            #about h3 {
+                font-size: 22px;
+                font-weight: 600;
+                margin: 20px 0 0 0;
+            }
+
+            #about .about-text span {
+                color: #70ad47;
+                font-weight: 700;
+                letter-spacing: -1px;
+            }
+
+            #about hr {
+                margin-left: 0;
+                margin-bottom: 40px;
+            }
+
+            #about .btn {
+                margin-top: 40px;
+            }
+
+            #about .about-media img {
+                position: relative;
+                display: block;
+                width: 100%;
+                height: auto;
+            }
+
+            #about .about-text, #about .about-desc {
+                margin-bottom: 40px;
+            }
+
+            #about p {
+                line-height: 24px;
+                margin-top: 20px;
+            }
+        #idPlants:hover {
+            transform: scale(1.1); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+        }
+        #get_plants_but {
+            background-color: #6aaf08;
+        }
+
+        #get_nurser_but {
+            background-color: #6aaf08;
+        }
+
+        #get_plants_but:hover {
+            background-color: #5f9d07;
+        }
+        
+
+        #get_nurser_but:hover {
+            background-color: #5f9d07;
+        }
+    </style>
+
+
+    <script>
+        /* Page Roll */
+        function main() {
+
+            (function () {
+                'use strict';
+
+                $('a.page-scroll').click(function () {
+                    if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
+                        var target = $(this.hash);
+                        target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+                        if (target.length) {
+                            $('html,body').animate({
+                                scrollTop: target.offset().top - 50
+                            }, 900);
+                            return false;
+                        }
+                    }
+                });
+         
+                
+
+            }());
+
+
+        }
+        main();
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyB8GjoBCD4Pmc_MR_YjUF3Y7QBrcS1BvrU"></script>
+    <script>
+        function initialize() {
+            var defaultBounds = new google.maps.LatLngBounds(
+                new google.maps.LatLng(-40.057893, 140.966348),
+                new google.maps.LatLng(-33.985844, 149.699059));
+            var options = {
+                bounds: defaultBounds,
+                componentRestrictions: { country: 'aus' }
+            };
+            var input = document.getElementById('adress');
+            new google.maps.places.Autocomplete(input, options);
+            
+        }
+
+        google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+    <script>
+        function show_more_info() {
+            $('html,body').animate({
+                scrollTop: $("#about").offset().top - 55
+            }, 'slow');
+        }
+    </script>
+}
+

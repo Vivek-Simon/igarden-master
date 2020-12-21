@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="igardensModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Plant">
+          <Key>
+            <PropertyRef Name="Plant_id" />
+          </Key>
+          <Property Name="Type" Type="nvarchar" MaxLength="50" />
+          <Property Name="Genus" Type="nvarchar" MaxLength="50" />
+          <Property Name="Tube_colour" Type="nvarchar" MaxLength="50" />
+          <Property Name="Botanical_name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Common_name" Type="nvarchar" MaxLength="100" />
+          <Property Name="Rain" Type="int" />
+          <Property Name="ph" Type="nvarchar" MaxLength="50" />
+          <Property Name="min_height" Type="float" />
+          <Property Name="max_height" Type="float" />
+          <Property Name="min_width" Type="float" />
+          <Property Name="max_width" Type="float" />
+          <Property Name="Soil" Type="nvarchar" MaxLength="50" />
+          <Property Name="Flower_Season" Type="nvarchar" MaxLength="50" />
+          <Property Name="Flower_Colour" Type="nvarchar" MaxLength="50" />
+          <Property Name="Frost_level" Type="nvarchar" MaxLength="50" />
+          <Property Name="Scientific_Name" Type="nvarchar(max)" />
+          <Property Name="Fire_resistant" Type="nvarchar" MaxLength="50" />
+          <Property Name="Plant_id" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Img_src" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityContainer Name="igardensModelStoreContainer">
+          <EntitySet Name="Plant" EntityType="Self.Plant" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="igardensModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Plant">
+          <Key>
+            <PropertyRef Name="Plant_id" />
+          </Key>
+          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Genus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Tube_colour" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Botanical_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Common_name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Rain" Type="Int32" />
+          <Property Name="ph" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="min_height" Type="Double" />
+          <Property Name="max_height" Type="Double" />
+          <Property Name="min_width" Type="Double" />
+          <Property Name="max_width" Type="Double" />
+          <Property Name="Soil" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Flower_Season" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Flower_Colour" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Frost_level" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Scientific_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Fire_resistant" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Plant_id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Img_src" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityContainer Name="igardensEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Plant" EntityType="Self.Plant" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="igardensModelStoreContainer" CdmEntityContainer="igardensEntities">
+          <EntitySetMapping Name="Plant">
+            <EntityTypeMapping TypeName="igardensModel.Plant">
+              <MappingFragment StoreEntitySet="Plant">
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Genus" ColumnName="Genus" />
+                <ScalarProperty Name="Tube_colour" ColumnName="Tube_colour" />
+                <ScalarProperty Name="Botanical_name" ColumnName="Botanical_name" />
+                <ScalarProperty Name="Common_name" ColumnName="Common_name" />
+                <ScalarProperty Name="Rain" ColumnName="Rain" />
+                <ScalarProperty Name="ph" ColumnName="ph" />
+                <ScalarProperty Name="min_height" ColumnName="min_height" />
+                <ScalarProperty Name="max_height" ColumnName="max_height" />
+                <ScalarProperty Name="min_width" ColumnName="min_width" />
+                <ScalarProperty Name="max_width" ColumnName="max_width" />
+                <ScalarProperty Name="Soil" ColumnName="Soil" />
+                <ScalarProperty Name="Flower_Season" ColumnName="Flower_Season" />
+                <ScalarProperty Name="Flower_Colour" ColumnName="Flower_Colour" />
+                <ScalarProperty Name="Frost_level" ColumnName="Frost_level" />
+                <ScalarProperty Name="Scientific_Name" ColumnName="Scientific_Name" />
+                <ScalarProperty Name="Fire_resistant" ColumnName="Fire_resistant" />
+                <ScalarProperty Name="Plant_id" ColumnName="Plant_id" />
+                <ScalarProperty Name="Img_src" ColumnName="Img_src" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

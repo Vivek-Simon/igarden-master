@@ -1,0 +1,242 @@
+﻿@model igarden.Models.NearByNurseries
+
+@{
+    ViewBag.Title = "Nurseries";
+}
+
+<header id="header">
+    <div class="intro">
+        <div class="overlay">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-10 col-md-offset-1 intro-text" style="padding-bottom:60px;padding-top:180px">
+                        <h1 style="font-size:50px">Nearby Nurseries</h1>
+                        <h2 style="color:white">
+                            @Session["Address"].ToString()
+                        </h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+@*<div class="col-lg-12" style="padding-top: 25px;padding-left:0px;padding-right:0px;">*@
+<div class="container1" style="">
+
+    <div class="row" style="margin-right:0px;margin-left:0px">
+
+        <div>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAS3cOvClxJNxdN9ctVIO8fj0fh4-xZY_4"></script>
+
+            <style type="text/css">
+
+                #map_canvas {
+                    height: 450px;
+                    border:solid;
+                    border-width:1px;
+                    border-radius: 4px;
+                    border-color: #bbbbbb;
+                }
+
+                .container1 {
+                    margin-top: 20px;
+                    margin-left: 5%;
+                    margin-right: 5%;
+                    text-align: center;
+                    width: 100%;
+                    max-width:90%;
+                }
+
+                #floating-panel {
+                    position: absolute;
+                    top: 10px;
+                    left: 25%;
+                    z-index: 5;
+                    background-color: #fff;
+                    padding: 5px;
+                    border: 1px solid #999;
+                    text-align: center;
+                    font-family: 'Roboto','sans-serif';
+                    line-height: 30px;
+                    padding-left: 10px;
+                }
+            </style>
+            <script>
+                var nurseryList = @Html.Raw(Json.Encode(Model.Nurseries));
+                var cenLat = @Html.Raw(Json.Encode(Model.locLat));
+                var cenLng = @Html.Raw(Json.Encode(Model.locLng));
+                var markers = [];
+                var selected_marker = null;
+                var travel_mode = "DRIVING";
+                $(document).ready(function () {
+                    display_map();
+                });
+                function display_map() {
+
+                    // execute
+                    (function () {
+                        var directionsService = new google.maps.DirectionsService;
+                        var directionsDisplay = new google.maps.DirectionsRenderer;
+                    // map options
+                        var options = {
+                            zoom: 12,
+                            center: new google.maps.LatLng(cenLat, cenLng),
+                            mapTypeId: google.maps.MapTypeId.Road,
+                            mapTypeControl: false
+                        };
+
+
+                    // init map
+                        var map = new google.maps.Map(document.getElementById('map_canvas'), options);
+                        var image = {
+                            url: 'https://upload.wikimedia.org/wikipedia/commons/2/22/Home_font_awesome.svg',
+                            scaledSize: new google.maps.Size(35, 35)
+                        };
+                        var marker = new google.maps.Marker({
+                            position: new google.maps.LatLng(cenLat, cenLng),
+                            map: map,
+                            title: "Your Garden",
+                            icon: image
+                        });
+
+                        directionsDisplay.setMap(map);
+                        for (var i = 0; i < nurseryList.length; i++) {
+                        // init markers
+                            markers[i] = new google.maps.Marker({
+                            position: new google.maps.LatLng(nurseryList[i].Latitude, nurseryList[i].Longitude),
+                            map: map,
+                            title: nurseryList[i].Name
+                            });
+                            var infowindow = new google.maps.InfoWindow();
+                            // process multiple info windows
+                            (function(marker, i) {
+                                // add click event
+                                google.maps.event.addListener(marker, 'click', function () {
+                                    infowindow.close();
+                                    infowindow = new google.maps.InfoWindow({
+                                        content: '<div><p><b>' + nurseryList[i].Name +
+                                            '</b></p><p>Address: ' + nurseryList[i].Address + '</p><p>Rating: ' + nurseryList[i].Rating +'/5</p>'
+                                    });
+                                    selected_marker = i;
+                                    infowindow.open(map, marker);
+                                    calculateAndDisplayRoute(directionsService, directionsDisplay, new google.maps.LatLng(cenLat, cenLng), new google.maps.LatLng(nurseryList[i].Latitude, nurseryList[i].Longitude));
+                                    div_highlight(nurseryList[i].ID);
+                                });
+                            })(markers[i], i);
+                        }
+                    })();
+                }
+
+                function calculateAndDisplayRoute(directionsService, directionsDisplay, org, dest) {
+                    var selectedMode = travel_mode;                    
+                    directionsService.route({
+                        origin: org,
+                        destination: dest,
+                        travelMode: google.maps.TravelMode[selectedMode]
+                    },
+                        function (response, status) {
+
+                            if (status === 'OK') {
+                                
+                            directionsDisplay.setDirections(response);
+                        } else {
+                            window.alert('Directions request failed due to ' + status);
+                        }
+                    });
+                }
+                function div_highlight(div_id) {
+                    for (var i = 0; i < nurseryList.length; i++) {
+                        document.getElementById(nurseryList[i].ID).style.border = "1.5px solid #4d9900";
+                        document.getElementById(nurseryList[i].ID).style.backgroundColor = "#f6f6f6";
+                        document.getElementById(nurseryList[i].ID).style.fontWeight = "normal"; 
+                    }
+
+                    document.getElementById(div_id).style.backgroundColor = "#e2e9e2";
+                    document.getElementById(div_id).style.borderBottom = "thick solid #4d9900";
+                    document.getElementById(div_id).style.borderRight = "thick solid #4d9900";
+                    document.getElementById(div_id).style.fontWeight = "bold";
+                }
+                function highlight_div(marker_no) {
+                    console.log(marker_no);
+                    google.maps.event.trigger(markers[marker_no], 'click');
+                }
+
+                function travel_change(mode) {
+                    travel_mode = mode;                    
+                    google.maps.event.trigger(markers[selected_marker], 'click');
+                }
+
+            </script>
+
+            @*<div class="col-lg-3"></div>*@
+            
+        <div class="col-lg-7" style="padding-top:30px; max-width:100%">
+            <div style="margin-bottom:5px">
+                <table align="center" width="300px">
+                    
+                    <tr>
+                        <td style="width:25%; text-align:center; padding-right:1%">
+                            <input checked="checked"
+                                   id="mode"
+                                   name="mode"
+                                   type="radio"
+                                   value="DRIVING"
+                                   onchange="travel_change(this.value)"/> Driving
+                        </td>
+                        <td style="width:25%; text-align:center;padding-left:1%; padding-right:1%">
+                            <input id="mode"
+                                   name="mode"
+                                   type="radio"
+                                   value="WALKING"
+                                   onchange="travel_change(this.value)" /> Walking
+                        </td>
+                        <td style="width:25%; text-align:center;padding-left:1%; padding-right:1%">
+                            <input id="mode"
+                                   name="mode"
+                                   type="radio"
+                                   value="BICYCLING"
+                                   onchange="travel_change(this.value)" /> Cycling
+                        </td>
+                        <td style="width:25%; text-align:center;padding-left:1%;">
+                            <input id="mode"
+                                   name="mode"
+                                   type="radio"
+                                   value="TRANSIT"
+                                   onchange="travel_change(this.value)" /> Transit
+                        </td>
+                        @*<select id="mode" onchange="travel_change()">
+            <option value="DRIVING">Driving</option>
+            <option value="WALKING">Walking</option>
+            <option value="BICYCLING">Bicycling</option>
+            <option value="TRANSIT">Transit</option>
+        </select>*@
+
+                    </tr>
+                        </table>
+            </div>
+            <div id="map_canvas"></div>
+
+        </div>
+
+            <div class="col-lg-5" style="font-size:15px; padding-top:20px">
+                @for(int i=0; i < Model.Nurseries.Count; i++)
+                {
+                    <div id=@Model.Nurseries[i].ID style="border-radius:15px; max-width:700px;border:solid; border-width:1.5px; border-color: #4d9900; padding:10px 10px 2px 10px; margin-bottom:10px; cursor:pointer" onclick="highlight_div(@i)">
+                        <ul style="margin-left:10%; margin-right:10%; text-align:justify">
+                            <li style="margin-left:10px;margin-bottom:10px;"><b>Name:</b> @Model.Nurseries[i].Name</li>
+                            <li style="margin-left:10px;margin-bottom:10px;"><b>Address:</b> @Model.Nurseries[i].Address</li>
+                            <li style="margin-left:10px;margin-bottom:10px;"><b>Rating:</b> @Model.Nurseries[i].Rating/5</li>
+                        </ul>
+                    </div>
+                }
+            </div>
+
+        </div>
+    </div>
+</div>
+<style>
+    #mode {
+        color: #4d9900;
+    }
+</style>

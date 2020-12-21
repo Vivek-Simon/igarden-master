@@ -1,0 +1,211 @@
+﻿<!-- Contact Section -->
+@{
+    ViewBag.Title = "Contact";
+}
+<header id="header">
+    <div class="intro">
+        <div class="overlay">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-10 col-md-offset-1 intro-text">
+                        <h1 style="font-size:50px">Contact Us</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<div id="contact" class="text-center">
+    <div class="container">
+        <div class="section-title text-center">
+            <h2>Contact Us</h2>
+            <hr>
+            <p>If you have any comments or suggestions.</p>
+            <p>Please contact us.</p>
+        </div>
+        <div class="col-md-10 col-md-offset-1 contact-info">
+            <div class="col-md-4">
+                <h3>Address</h3>
+                <div class="contact-item">
+                    <p>Melbourne</p>
+                    <p>Australia, VIC 3000</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <h3>Working Hours</h3>
+                <hr>
+                <div class="contact-item">
+                    <p>Monday-Saturday: 07:00 - 18:00</p>
+                    <p>Sunday: CLOSED</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <h3>Contact Info</h3>
+                <hr>
+                <div class="contact-item">
+                    <p>Phone: +61 123 456 1234</p>
+                    <p>Email: info@company.com</p>
+                </div>
+            </div>
+        </div>
+        @*<div class="col-md-8 col-md-offset-2">
+            <h3>Leave us a message</h3>
+            <form name="sentMessage" id="contactForm" novalidate>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="text" id="name" class="form-control" placeholder="Name" required="required">
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="email" id="email" class="form-control" placeholder="Email" required="required">
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <textarea name="message" id="message" class="form-control" rows="4" placeholder="Message" required></textarea>
+                    <p class="help-block text-danger"></p>
+                </div>
+                <div id="success"></div>
+                <button type="submit" class="btn btn-custom btn-lg">Send Message</button>
+            </form>
+        </div>*@
+    </div>
+</div>
+
+<style>
+    /* Contact Section */
+    #contact {
+        padding: 100px 0;
+        background: #F6F6F6;
+    }
+
+        #contact .section-title p {
+            color: #777;
+        }
+
+        #contact form {
+            padding: 0;
+            margin-top: 40px;
+        }
+
+        #contact h3 {
+            text-transform: uppercase;
+            font-size: 17px;
+            font-weight: 600;
+        }
+
+        #contact .text-danger {
+            color: #cc0033;
+            text-align: left;
+        }
+
+    label {
+        font-size: 12px;
+        font-weight: 400;
+        font-family: 'Open Sans', sans-serif;
+        float: left;
+    }
+
+    #contact .form-control {
+        display: block;
+        width: 100%;
+        padding: 20px 20px;
+        font-size: 16px;
+        line-height: 1.42857143;
+        color: #444;
+        background-color: #fff;
+        background-image: none;
+        border: 1px solid #ddd;
+        border-radius: 0;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        -webkit-transition: none;
+        -o-transition: none;
+        transition: none;
+    }
+
+        #contact .form-control:focus {
+            outline: 0;
+            -webkit-box-shadow: 0 0 15px #ddd;
+            box-shadow: 0 0 15px #ddd;
+        }
+
+    .form-control::-webkit-input-placeholder {
+        color: #777;
+    }
+
+    .form-control:-moz-placeholder {
+        color: #777;
+    }
+
+    .form-control::-moz-placeholder {
+        color: #777;
+    }
+
+    .form-control:-ms-input-placeholder {
+        color: #777;
+    }
+
+    #contact .contact-info {
+        margin-bottom: 30px;
+    }
+
+        #contact .contact-info hr {
+            background: #ddd;
+        }
+
+    #contact .contact-item {
+        margin: 20px 0 40px 0;
+    }
+
+    /* Button */
+    .btn {
+        display: inline-block;
+        padding: 6px 12px;
+        margin-bottom: 0;
+        font-size: 14px;
+        font-weight: normal;
+        line-height: 1.42857143;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        -ms-touch-action: manipulation;
+        touch-action: manipulation;
+        cursor: pointer;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        background-image: none;
+        border: 1px solid transparent;
+        border-radius: 4px;
+    }
+
+    .btn-custom {
+        text-transform: uppercase;
+        color: #fff;
+        background-color: #6aaf08;
+        padding: 14px 20px;
+        letter-spacing: 1px;
+        margin: 0;
+        font-size: 17px;
+        font-weight: 400;
+        border-radius: 6px;
+        margin-top: 20px;
+        transition: all 0.3s;
+    }
+
+    .btn-lg,
+    .btn-group-lg > .btn {
+        padding: 10px 16px;
+        font-size: 18px;
+        line-height: 1.3333333;
+        border-radius: 6px;
+    }
+</style>
